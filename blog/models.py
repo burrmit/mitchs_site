@@ -1,7 +1,7 @@
 # blog/models.py
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
-
+from django.utils import timezone
 
 class PostQuerySet(models.QuerySet):
     def published(self):
@@ -13,7 +13,8 @@ class PostQuerySet(models.QuerySet):
 class Topic(models.Model):
     name = models.CharField(
         max_length=50,
-        unique=True  # No duplicates!
+        unique=True,  # No duplicates!
+        null=False
     )
     slug = models.SlugField(unique=True)
 
@@ -33,10 +34,10 @@ class Post(models.Model):
         (DRAFT, 'Draft'),
         (PUBLISHED, 'Published')
     ]
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)  # Sets on create
-    updated = models.DateTimeField(auto_now=True)  # Updates on each save
+    title = models.CharField(max_length=255, null=False)
+    content = models.TextField(null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)  # Sets on create
+    updated = models.DateTimeField(auto_now=True, null=True)  # Updates on each save
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,  # The Django auth user model
         on_delete=models.PROTECT,  # Prevent posts from being deleted
@@ -48,6 +49,7 @@ class Post(models.Model):
         choices=STATUS_CHOICES,
         default=DRAFT,
         help_text='Set to "published" to make this post publicly visible',
+        null=False
     )
     published = models.DateTimeField(
         null=True,
@@ -69,6 +71,10 @@ class Post(models.Model):
         # specifies to order in descending/reverse order.
         # Otherwise, it will be in ascending order.
         ordering = ['-created']
+
+    def publish(self):
+        self.status = self.PUBLISHED
+        self.published = timezone.now()
 
     def __str__(self):
         return self.title
