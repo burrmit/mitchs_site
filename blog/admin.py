@@ -14,6 +14,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = (
         'status',
         'author',
+        'topics',
     )
 
     search_fields = (
@@ -24,5 +25,13 @@ class PostAdmin(admin.ModelAdmin):
     )
 
     prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(models.Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'slug',
+    )
+    prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(models.Post, PostAdmin)

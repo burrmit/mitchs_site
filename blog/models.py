@@ -3,6 +3,26 @@ from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
 
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        return self.filter(status=self.model.DRAFT)
+
+class Topic(models.Model):
+    name = models.CharField(
+        max_length=50,
+        unique=True  # No duplicates!
+    )
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
 class Post(models.Model):
     """
     Represents a blog post
@@ -38,6 +58,11 @@ class Post(models.Model):
         null=False,
         unique_for_date='published',
     )
+    topics = models.ManyToManyField(
+        Topic,
+        related_name='blog_posts'
+    )
+    objects = PostQuerySet.as_manager()
 
     class Meta:
         # Sort by the `created` field. The `-` prefix
@@ -46,4 +71,4 @@ class Post(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return self.title    
+        return self.title
