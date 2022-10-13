@@ -16,7 +16,7 @@ class Topic(models.Model):
         unique=True,  # No duplicates!
         null=False
     )
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=False)
 
     def __str__(self):
         return self.name

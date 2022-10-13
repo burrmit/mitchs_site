@@ -6,14 +6,14 @@ from . import models
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         'title',
+        'author',
+        'status',
         'created',
         'updated',
-        'author',
     )
 
     list_filter = (
         'status',
-        'author',
         'topics',
     )
 
