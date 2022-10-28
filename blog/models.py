@@ -94,7 +94,7 @@ class Post(models.Model):
                 }
             )
 
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('post-detail', kwargs={'slug': self.slug})
 
 class Comment(models.Model):
     """
