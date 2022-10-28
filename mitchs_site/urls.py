@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from . import views   # Import the views module
+from blog import views 
 
 urlpatterns = [
-    path('', views.index),  # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('about.html', views.about, name='about'),
+    path('contact.html', views.contact, name='contact'),
+    path('posts.html', views.posts, name='posts'),
+    path('posts/<slug:slug>/', views.PostDetailView.as_view(), name='post-detail'),
 ]

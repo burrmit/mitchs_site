@@ -1,0 +1,58 @@
+<!-- blog/templates/blog/base.html -->
+{% load static %} <link rel="stylesheet" href="{% static "blog/base.css" %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mitchell's Site – {% block page_title %}An okay blog{% endblock %}</title>
+  <link href="//fonts.googleapis.com/css?family=Caveat&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!-- The header -->
+  <header id="site-header">
+     <h1><img src="{% static "blog/jason.png" %}" alt="Logo" id="logo">Mitchell's Blog</h1>
+     <p>Your daily dose of great stuff!</p>
+     <!-- Top navigation -->
+     <nav id="top-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/posts.html">Posts</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="alt-body">
+  <main id="main-content">
+
+  <div>
+   {% block main %}
+   <!-- Content for the main block will be rendered here -->
+   {% endblock %}
+  </div>
+
+     <aside id="sidebar">
+       <section id="topics-list">
+         <div id=sidebar-header>
+         <h3>Topics</h3>
+         </div>
+         <ul>
+           {% for topic in topics %}
+             <li>{{ topic.name }} ({{ topic.post_count }})</li>
+           {% endfor %}
+         </ul>
+       </section>
+     </aside>
+
+  </main>
+
+  <!-- The footer -->
+  <footer id="site-footer">
+    <!-- Print copyright with the current year -->
+    Copyright &copy; 1986 - {% now 'Y' %} by Mitchell Burr Inc.
+    All Rights Reserved
+  </footer>
+</div> <!-- End alt-body div -->
+</body>
+</html>

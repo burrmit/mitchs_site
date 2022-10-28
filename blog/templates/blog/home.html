@@ -1,0 +1,22 @@
+<!-- blog/templates/blog/home.html -->
+
+{% extends "blog/base.html" %}
+{% block page_title %}My Homepage{% endblock %}
+{% block main %}
+<p>Welcome to the home page of my blog!</p>
+<h2>Latest posts</h2>
+{% for post in latest_posts %}
+  <div id="post-box">
+   <div id="sidebar-header">
+    <h3>{{ post.title }}</h3>
+   </div>
+   <br/>
+   <em>| {{ post.published|timesince }} ago</em><br />
+   <p>{{ post.content|slice:":100" }}</p>
+   <br/>
+   <a href="{{ post.get_url }}" class="btn-primary">Read More &rarr;</a>
+  </div>
+ <br/>
+{% endfor %}
+
+{% endblock %}

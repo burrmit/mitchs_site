@@ -1,0 +1,15 @@
+<!-- blog/templates/blog/post_detail.html -->
+
+{% extends "blog/base.html" %}
+{% block page_title %}{{ post.title }}{% endblock %}
+{% block main %}
+
+<h2>{{ post.title }}</h2>
+
+<em>{{ post.published|timesince }} ago</em>
+
+<p id="content">{{ post.content }}</p>
+
+<h4>Authored by: {{ post.author }}</h4>
+
+{% endblock %}

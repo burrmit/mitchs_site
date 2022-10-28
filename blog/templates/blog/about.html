@@ -1,0 +1,15 @@
+<!-- blog/templates/blog/home.html -->
+
+{% extends "blog/base.html" %}
+{% block page_title %}About Me{% endblock %}
+{% block main %}
+{% load static %}
+<h2>About Me</h2>
+<p id="about_me"><img src='{% static "blog/mitchell.jpg" %}' alt="Mitchell Burr" id="photo_me"><br/>
+Welcome to my blog that is just getting started. I am Mitchell, a DevOps Engineer, who is focused a
+lot on automation and operational improvements for my company. I am currently learning Python to
+expand my knowledge in the development space, so I can further take advantage of automation tools
+that we use, like Ansible, that are based on the language.</p>
+<p id="about_me">Here is a great example of how I am progressing through my Advanced Python course,
+using the Django web framework to build out this custom blog website.</p>
+{% endblock %}

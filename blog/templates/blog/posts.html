@@ -1,0 +1,20 @@
+<!-- blog/templates/blog/home.html -->
+
+{% extends "blog/base.html" %}
+{% block page_title %}Posts{% endblock %}
+{% block main %}
+<h2>Blog posts</h2>
+{% for post in posts %}
+<div id="post-box">
+<div id="sidebar-header">
+<h3>{{ post.title }}</h3>
+</div>
+<br/>
+<em>| {{ post.published|timesince }} ago</em><br />
+<p>{{ post.content }}</p>
+<br/>
+<a href="{{ post.get_url }}" class="btn-primary">Full Post &rarr;</a>
+</div>
+<br/>
+{% endfor %}
+{% endblock %}

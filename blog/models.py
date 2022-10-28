@@ -2,6 +2,8 @@
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 class PostQuerySet(models.QuerySet):
     def published(self):
@@ -9,6 +11,10 @@ class PostQuerySet(models.QuerySet):
 
     def drafts(self):
         return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        User = get_user_model()
+        return User.objects.filter(blog_posts__in=self).distinct()
 
 class Topic(models.Model):
     name = models.CharField(
@@ -78,6 +84,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_url(self):
+        if self.published:
+            return reverse(
+                'post-detail',
+                kwargs={
+                    'slug': self.slug
+                }
+            )
+
+        return reverse('post-detail', kwargs={'pk': self.pk})
 
 class Comment(models.Model):
     """

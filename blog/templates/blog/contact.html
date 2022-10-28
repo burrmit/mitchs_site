@@ -1,0 +1,26 @@
+<!-- blog/templates/blog/home.html -->
+
+{% extends "blog/base.html" %}
+{% block page_title %}Contact Me{% endblock %}
+{% block main %}
+<div class="container">
+<h2>Contact Me</h2>
+
+  <form action="#">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name...">
+    <br/><br/>
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name...">
+    <br/><br/>
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject" placeholder="Subject...">
+    <br/><br/>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Type your message here..." style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock %}
