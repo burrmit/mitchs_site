@@ -95,25 +95,3 @@ class Post(models.Model):
             )
 
         return reverse('post-detail', kwargs={'slug': self.slug})
-
-class Comment(models.Model):
-    """
-    New Comment model for blog posts
-    """
-    post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        related_name='comments',
-    )
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    text = models.TextField(max_length=255)
-    approved = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    updated = models.DateTimeField(auto_now=True, null=True)
-
-    class Meta:
-        ordering = ['-created']
-
-    def __str__(self):
-        return f'Comment {self.text[:60]} by {self.name}'
